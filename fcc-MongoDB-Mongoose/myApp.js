@@ -36,32 +36,64 @@ var createAndSavePerson = function (done) {
   });
 };
 
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/ );
-};
+function createManyPeople(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, function (err, people) {
+    if (err)
+      return console.log(err);
+    done(null, people);
+  });
 
-const findPeopleByName = (personName, done) => {
-  done(null /*, data*/ );
+}
+
+const createManyPeople = (arrayOfPeople, done) => {
+  Person.create(arrayOfPeople, function(err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
+  
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/ );
+  Person.findOne({favouriteFoods: food}, (error, food) => {
+    if (error) return console.log(error);
+    done(null, food);
+    
+  })
 };
 
-const findPersonById = (personId, done) => {
-  done(null /*, data*/ );
+const findPersonById = function(personId, done) {
+  Person.findById(personId, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = 'hamburger';
 
-  done(null /*, data*/ );
+  // .findById() method to find a person by _id with the parameter personId as search key. 
+  Person.findById(personId, (err, person) => {
+    if(err) return console.log(err); 
+  
+    // Array.push() method to add "hamburger" to the list of the person's favoriteFoods
+    person.favoriteFoods.push(foodToAdd);
+
+    // and inside the find callback - save() the updated Person.
+    person.save((err, updatedPerson) => {
+      if(err) return console.log(err);
+      done(null, updatedPerson)
+    })
+  })
 };
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
+  let Person = findById(personId, (error, person) => {
+    if (error) return console.log(error);
+    return person;
+  })
+  done(null, personName);
 
-  done(null /*, data*/ );
 };
 
 const removeById = (personId, done) => {
