@@ -1,0 +1,7 @@
+/node_modules
+npm-debug.log
+.DS_Store
+priv_notes.md
+general_notes.md
+scratchpad_notes.txt
+/*.env
